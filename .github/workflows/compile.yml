@@ -16,12 +16,13 @@ jobs:
           curl -fL "https://github.com/pawn-lang/compiler/releases/download/v3.10.10/pawnc-3.10.10-linux.tar.gz" -o pawnc.tar.gz
           mkdir pawnc && tar -xzf pawnc.tar.gz -C pawnc --strip-components=1
           git clone --depth 1 https://github.com/pawn-lang/samp-stdlib stdlib
+          ls pawnc pawnc/include
 
       - name: Derle
         run: |
           mkdir -p compiled
           export LD_LIBRARY_PATH=$PWD/pawnc/lib
-          pawnc/bin/pawncc duktur.pwn -istdlib -i. -ocompiled/duktur.amx -d3
+          pawnc/bin/pawncc duktur.pwn -ipawnc/include -istdlib -i. -ocompiled/duktur.amx -d3
 
       - name: Çıktıyı yükle
         uses: actions/upload-artifact@v4
