@@ -2,6 +2,7 @@
 // Gerekli klasorler: scriptfiles/duktur/hesap  ve  scriptfiles/duktur/karakter
 #include <a_samp>
 #define strncmp(%0,%1,%2) strcmp(%0,%1,false,%2)
+native Float:floatstr(const string[]);
 
 #define MOR 0xA855F7FF
 #define KIRMIZI 0xFF5555FF
