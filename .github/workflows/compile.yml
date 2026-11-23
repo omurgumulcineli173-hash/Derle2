@@ -18,14 +18,13 @@ jobs:
           git clone -q --depth 1 https://github.com/pawn-lang/samp-stdlib stdlib
           git clone -q --depth 1 https://github.com/pawn-lang/compiler pawnsrc
           INC=$(dirname "$(find pawnsrc -name core.inc | head -n 1)")
-          echo "Include klasoru: $INC"
           echo "INC=$INC" >> $GITHUB_ENV
 
       - name: Derle
         run: |
           mkdir -p compiled
           export LD_LIBRARY_PATH=$PWD/pawnc/lib
-          pawnc/bin/pawncc duktur.pwn -i$INC -istdlib -i. -ocompiled/duktur.amx -d3
+          pawnc/bin/pawncc duktur.pwn -i$INC -istdlib -i. -ocompiled/duktur.amx -d3 > derle.log 2>&1 || (grep -E "error" derle.log; exit 1)
 
       - name: Çıktıyı yükle
         uses: actions/upload-artifact@v4
