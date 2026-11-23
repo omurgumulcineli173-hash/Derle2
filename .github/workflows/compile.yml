@@ -8,9 +8,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: AMXX derleyicisini indir
+            - name: AMXX derleyicisini indir
         run: |
-          wget -q "https://www.amxmodx.org/latest.php?version=1.10&os=linux" -O amxx.tar.gz
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libc6:i386 libstdc++6:i386
+          curl -fL "https://www.amxmodx.org/latest.php?version=1.10&os=linux&package=base" -o amxx.tar.gz
+          file amxx.tar.gz
           mkdir amxx && tar -xzf amxx.tar.gz -C amxx
           chmod +x amxx/addons/amxmodx/scripting/amxxpc
 
