@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-            - name: AMXX derleyicisini indir
+      - name: AMXX derleyicisini indir
         run: |
           sudo dpkg --add-architecture i386
           sudo apt-get update -qq
