@@ -1,0 +1,29 @@
+name: AMXX Derle
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: AMXX derleyicisini indir
+        run: |
+          wget -q "https://www.amxmodx.org/latest.php?version=1.10&os=linux" -O amxx.tar.gz
+          mkdir amxx && tar -xzf amxx.tar.gz -C amxx
+          chmod +x amxx/addons/amxmodx/scripting/amxxpc
+
+      - name: Derle
+        run: |
+          mkdir -p compiled
+          cd amxx/addons/amxmodx/scripting
+          for f in $GITHUB_WORKSPACE/scripting/*.sma; do
+            ./amxxpc "$f" -i$GITHUB_WORKSPACE/scripting/include -o$GITHUB_WORKSPACE/compiled/$(basename "${f%.sma}").amxx
+          done
+
+      - name: Çıktıları yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: eklentiler
+          path: compiled/*.amxx
