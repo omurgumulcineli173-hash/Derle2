@@ -15,7 +15,7 @@ jobs:
           sudo apt-get install -y -qq libc6:i386 libstdc++6:i386
           curl -fL "https://github.com/pawn-lang/compiler/releases/download/v3.10.10/pawnc-3.10.10-linux.tar.gz" -o pawnc.tar.gz
           mkdir pawnc && tar -xzf pawnc.tar.gz -C pawnc --strip-components=1
-          git clone --depth 1 https://github.com/openmultiplayer/omp-stdlib stdlib
+          git clone --depth 1 https://github.com/pawn-lang/samp-stdlib stdlib
 
       - name: Derle
         run: |
